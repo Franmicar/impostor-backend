@@ -45,15 +45,15 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-// Main Backend Route for easier checking
+// Base Route
 app.get('/', (req, res) => {
-    res.json({ status: 'Impostor Backend is running successfully!' });
+    res.json({ status: 'Impostor Backend API is running successfully on Vercel!' });
 });
 app.use('/api', routes_1.routes);
-// Export for serverless
-module.exports = app;
 if (process.env.NODE_ENV !== 'production') {
     app.listen(port, () => {
         console.log(`Server running on port ${port}`);
     });
 }
+// Export the express app for Vercel
+exports.default = app;
