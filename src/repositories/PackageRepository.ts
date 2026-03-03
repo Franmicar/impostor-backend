@@ -1,8 +1,8 @@
-import { db } from '../config/firebase';
+import { getDb } from '../config/firebase';
 
 export class PackageRepository {
     private get collection() {
-        return db.collection('packages');
+        return getDb().collection('packages');
     }
 
     /**
