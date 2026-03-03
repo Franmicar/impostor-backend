@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-try {
+if (!admin.apps.length) {
     let credential;
 
     if (process.env.FIREBASE_SERVICE_ACCOUNT) {
@@ -17,16 +17,19 @@ try {
         }
     } else {
         // For local development, it relies on GOOGLE_APPLICATION_CREDENTIALS pointing to the file path
+        console.warn("Warning: FIREBASE_SERVICE_ACCOUNT not set. Falling back to applicationDefault(). This may crash if no local credentials exist.");
         credential = admin.credential.applicationDefault();
     }
 
-    admin.initializeApp({
-        credential: credential
-    });
-
-    console.log('Firebase Admin SDK initialized successfully.');
-} catch (error) {
-    console.error('Firebase Admin SDK initialization error:', error);
+    try {
+        admin.initializeApp({
+            credential: credential
+        });
+        console.log('Firebase Admin SDK initialized successfully.');
+    } catch (error) {
+        console.error('Firebase Admin SDK initialization error:', error);
+        throw error; // Rethrow so the crash happens here with a clear message, rather than silently failing and crashing at db creation.
+    }
 }
 
 export const db = admin.firestore();
