@@ -1,7 +1,5 @@
 import * as admin from 'firebase-admin';
-import * as dotenv from 'dotenv';
 
-dotenv.config();
 
 export const getDb = () => {
     if (!admin.apps.length) {
@@ -10,7 +8,9 @@ export const getDb = () => {
         if (process.env.FIREBASE_SERVICE_ACCOUNT) {
             // If deployed on Vercel, read the JSON string directly from the secret environment variable
             try {
-                const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+                // Vercel sometimes escapes newlines in dashboard variables
+                const privateKeyFix = process.env.FIREBASE_SERVICE_ACCOUNT.replace(/\\n/g, '\n');
+                const serviceAccount = JSON.parse(privateKeyFix);
                 credential = admin.credential.cert(serviceAccount);
             } catch (e) {
                 console.error("Failed to parse FIREBASE_SERVICE_ACCOUNT JSON. Check Vercel Env Vars.", e);

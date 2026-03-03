@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { BaseController } from './BaseController';
 import { PackageService } from '../services/packageService';
 
@@ -7,7 +7,7 @@ export class PackageController extends BaseController {
         super();
     }
 
-    async list(req: Request, res: Response) {
+    async list(req: VercelRequest, res: VercelResponse) {
         try {
             const lang = (req.query.lang as string) || 'es';
             const packages = await this.packageService.getAllPackages(lang);
@@ -17,9 +17,9 @@ export class PackageController extends BaseController {
         }
     }
 
-    async getOne(req: Request, res: Response) {
+    async getOne(req: VercelRequest, res: VercelResponse) {
         try {
-            const id = req.params.id as string;
+            const id = req.query.id as string;
             const lang = (req.query.lang as string) || 'es';
             const pkg = await this.packageService.getPackageById(id, lang);
             this.handleSuccess(res, pkg, 'Package retrieved successfully');
@@ -31,9 +31,9 @@ export class PackageController extends BaseController {
         }
     }
 
-    async getWords(req: Request, res: Response) {
+    async getWords(req: VercelRequest, res: VercelResponse) {
         try {
-            const id = req.params.id as string;
+            const id = req.query.id as string;
             const lang = (req.query.lang as string) || 'es';
             const words = await this.packageService.getPackageWords(id, lang);
             this.handleSuccess(res, words, 'Words retrieved successfully');

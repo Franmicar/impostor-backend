@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export abstract class BaseController {
 
     /**
      * Responde con un status 200 y JSON data format
      */
-    protected handleSuccess(res: Response, data: any, message: string = 'Success') {
+    protected handleSuccess(res: VercelResponse, data: any, message: string = 'Success') {
         res.status(200).json({
             success: true,
             message,
@@ -16,7 +16,7 @@ export abstract class BaseController {
     /**
      * Responde con un status 201 y un item creado
      */
-    protected handleCreated(res: Response, data: any, message: string = 'Created successfully') {
+    protected handleCreated(res: VercelResponse, data: any, message: string = 'Created successfully') {
         res.status(201).json({
             success: true,
             message,
@@ -27,7 +27,7 @@ export abstract class BaseController {
     /**
      * Captura el error, lo loguea (futuro Sentry link aquí) y devuelve formatiado
      */
-    protected handleError(error: unknown, res: Response, context?: string) {
+    protected handleError(error: unknown, res: VercelResponse, context?: string) {
         console.error(`[BaseController Error] Context: ${context || 'Unknown'}`, error);
 
         // Regla #5 (Backend Dev Guidelines): Integrar con Sentry en el futuro aquí.
@@ -43,7 +43,7 @@ export abstract class BaseController {
     /**
      * Manejo estandar de Validation Error (Zod usualmente)
      */
-    protected handleValidationError(res: Response, errors: any) {
+    protected handleValidationError(res: VercelResponse, errors: any) {
         res.status(400).json({
             success: false,
             message: 'Validation Error',
@@ -54,7 +54,7 @@ export abstract class BaseController {
     /**
      * Elemento no encontrado
      */
-    protected handleNotFound(res: Response, message: string = 'Resource not found') {
+    protected handleNotFound(res: VercelResponse, message: string = 'Resource not found') {
         res.status(404).json({
             success: false,
             message,
