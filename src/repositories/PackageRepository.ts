@@ -1,7 +1,9 @@
 import { db } from '../config/firebase';
 
 export class PackageRepository {
-    private readonly collection = db.collection('packages');
+    private get collection() {
+        return db.collection('packages');
+    }
 
     /**
      * Obtiene todos los paquetes disponibles.
