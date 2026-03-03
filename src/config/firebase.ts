@@ -8,9 +8,10 @@ export const getDb = () => {
         if (process.env.FIREBASE_SERVICE_ACCOUNT) {
             // If deployed on Vercel, read the JSON string directly from the secret environment variable
             try {
-                // Vercel sometimes escapes newlines in dashboard variables
-                const privateKeyFix = process.env.FIREBASE_SERVICE_ACCOUNT.replace(/\\n/g, '\n');
-                const serviceAccount = JSON.parse(privateKeyFix);
+                const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+                if (serviceAccount.private_key) {
+                    serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+                }
                 credential = admin.credential.cert(serviceAccount);
             } catch (e) {
                 console.error("Failed to parse FIREBASE_SERVICE_ACCOUNT JSON. Check Vercel Env Vars.", e);
