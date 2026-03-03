@@ -1,9 +1,6 @@
 ﻿import express, { Request, Response } from 'express';
 import cors from 'cors';
-import * as dotenv from 'dotenv';
 import { routes as apiRoutes } from '../src/routes';
-
-dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,4 +16,4 @@ app.get('/api', (req: Request, res: Response) => {
 app.use('/api', apiRoutes);
 
 // Export the express app for Vercel
-export default app;
+module.exports = app;
