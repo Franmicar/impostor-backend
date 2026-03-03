@@ -35,15 +35,15 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDb = void 0;
 const admin = __importStar(require("firebase-admin"));
-const dotenv = __importStar(require("dotenv"));
-dotenv.config();
 const getDb = () => {
     if (!admin.apps.length) {
         let credential;
         if (process.env.FIREBASE_SERVICE_ACCOUNT) {
             // If deployed on Vercel, read the JSON string directly from the secret environment variable
             try {
-                const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+                // Vercel sometimes escapes newlines in dashboard variables
+                const privateKeyFix = process.env.FIREBASE_SERVICE_ACCOUNT.replace(/\\n/g, '\n');
+                const serviceAccount = JSON.parse(privateKeyFix);
                 credential = admin.credential.cert(serviceAccount);
             }
             catch (e) {
