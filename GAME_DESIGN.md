@@ -52,4 +52,8 @@ Junto a los modos y roles, la versión actual introduce la capacidad de elegir c
 - **Nuevas Dinámicas Base**: Inclusión oficial a nivel de diseño de los juegos de tipo "Preguntas" (Questions) y "Dibujos" (Drawing), diversificando el bucle de juego.
 - **Internacionalización**: Soporte oficial y estructurado para Francés (FR) y Catalán (CA) en los paquetes de palabras provistos.
 - **Assets Gráficos**: Preparación y vinculación de nuevos iconos 3D para la selección de paquetes (Anime, Animales, Películas).
-- **UI/UX en Frontend asociado**: Optimizaciones en scrollbars, refinado de iconos en configuración y sincronización de traducciones de tiempos de turno.
+### Versión 1.2.0
+- **Cloud Presets (Grupos en la Nube)**: Funcionalidad para guardar grupos de amigos habituales asociados a la cuenta de usuario (Firebase). Permite selección, memorización de estado y borrado con modales de seguridad personalizados.
+- **Rediseño de Sistema de Alertas**: Sustratos de alertas nativos del navegador (`alert()`) eliminados y sustituidos por un sistema de Pop-Ups inmersivos con el diseño *Dark Glassmorphism*.
+- **Avatares Visibles y Optimizados**: Compresión de imágenes subidas en el lado del cliente (Canvas) para evitar saturación de red, y rediseño de la pantalla de "Votación" para renderizar dinámicamente las fotografías subidas en juego, aumentando la inmersión dramática.
+- **Validaciones de Seguridad**: Límites de caracteres en la creación de grupos y sistemas anti-duplicados estrictos.

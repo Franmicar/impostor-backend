@@ -58,4 +58,5 @@ impostor-backend/
 ## 7. Novedades en Arquitectura (v1.1.0)
 - **Compatibilidad con Tipos de Juego**: La API y las colecciones de palabras han sido abstraídas conceptualmente para que el cliente (Frontend) pueda usarlas bajo nuevos modelos semánticos (Juegos de Preguntas y Dibujo) sin colisionar con el Payload estándar.
 - **Expansión de Idiomas (i18n)**: Ampliación de las respuestas JSON y recolección controlada de campos de traducción/pistas en Francés (FR) y Catalán (CA), garantizando la latencia.
-- **Preparación de Nuevos Metadatos**: Integración nativa de la metadata para acomodar los nuevos paquetes activos en cliente (incluyendo Manga & Anime, Mundo Animal y Películas de Culto con sus referencias a assets 3D).
+### Versión 1.2.0
+- **Cloud Presets (Backend pasivo)**: Este parche actuó enteramente en la infraestructura Frontend apoyándose en la nube de Google (`@angular/fire`) para aliviar la recolección de base de datos (`Firestore`). No se precisaron modificaciones en los conectores Node.js para que la función pudiese soportar avatares aligerados por Canvas.
