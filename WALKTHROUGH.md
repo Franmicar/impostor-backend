@@ -54,3 +54,8 @@ impostor-backend/
 - No hay ningún servidor funcionando 24/7 de forma pasiva vaciando dinero o memoria RAM.
 - **Serverless**: Configurado a través de sub-rutas `/api` con el archivo mágico `vercel.json` ("*Todo lo pertinente redirecciónalo estático a `api/index.ts` donde vive Express escondido*"). 
 - El backend puede absorber cargas o picos grandes de conexiones de jugadores pidiendo cartas y apagar la instancia inmediatamente tras resolver el JSON.
+
+## 7. Novedades en Arquitectura (v1.1.0)
+- **Compatibilidad con Tipos de Juego**: La API y las colecciones de palabras han sido abstraídas conceptualmente para que el cliente (Frontend) pueda usarlas bajo nuevos modelos semánticos (Juegos de Preguntas y Dibujo) sin colisionar con el Payload estándar.
+- **Expansión de Idiomas (i18n)**: Ampliación de las respuestas JSON y recolección controlada de campos de traducción/pistas en Francés (FR) y Catalán (CA), garantizando la latencia.
+- **Preparación de Nuevos Metadatos**: Integración nativa de la metadata para acomodar los nuevos paquetes activos en cliente (incluyendo Manga & Anime, Mundo Animal y Películas de Culto con sus referencias a assets 3D).
