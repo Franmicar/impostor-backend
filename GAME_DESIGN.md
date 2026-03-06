@@ -57,3 +57,8 @@ Junto a los modos y roles, la versión actual introduce la capacidad de elegir c
 - **Rediseño de Sistema de Alertas**: Sustratos de alertas nativos del navegador (`alert()`) eliminados y sustituidos por un sistema de Pop-Ups inmersivos con el diseño *Dark Glassmorphism*.
 - **Avatares Visibles y Optimizados**: Compresión de imágenes subidas en el lado del cliente (Canvas) para evitar saturación de red, y rediseño de la pantalla de "Votación" para renderizar dinámicamente las fotografías subidas en juego, aumentando la inmersión dramática.
 - **Validaciones de Seguridad**: Límites de caracteres en la creación de grupos y sistemas anti-duplicados estrictos.
+
+### Versión 1.2.1
+- **Mejoras del Modo Dibujo**: Reestructuración y rediseño de la pantalla de dibujo. Herramientas más accesibles y usables antes de comenzar el turno.
+- **Flujo "Volver a Pintar"**: Opciones añadidas durante la fase de votación para reabrir el dibujo anterior u obtener un lienzo limpio. Inclusión de un histórico de dibujos (Galería) en la modal de visualización en la votación.
+- **Cropper de Avatares**: Actualización de calidad de vida. En la pantalla de creación/setup de jugadores ahora se exige y permite un recorte visual "1:1" de las imágenes, mejorando la uniformidad visual y soporte para cámaras en pantallas táctiles.
