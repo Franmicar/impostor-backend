@@ -21,9 +21,10 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
 
     <p>Gracias por jugar a <strong>Deceptra</strong> ("la Aplicación"). Esta política de privacidad explica cómo recopilamos, usamos y protegemos su información cuando utiliza nuestra aplicación móvil.</p>
 
-    <h2>1. Recopilación y Uso de Datos</h2>
-    <p>No recopilamos información personal identificable como nombres, direcciones, números de teléfono o correos electrónicos sin su consentimiento explícito.</p>
-    <p>Solo guardamos los paquetes de palabras personalizados vinculados a su identificador de cuenta de Firebase anónimo o cuenta registrada con el fin de proporcionar el servicio multiplataforma.</p>
+    <h2>1. Recopilación y Uso de Datos y Autenticación</h2>
+    <p>La Aplicación ofrece la posibilidad de iniciar sesión utilizando su cuenta de Google (<strong>Google Sign-In</strong>). Si decide utilizar este método, recibiremos cierta información de su perfil de Google, como su nombre, dirección de correo electrónico y foto de perfil. Esta información se utiliza exclusivamente para crear y mantener su perfil de usuario dentro del juego y para sincronizar su progreso y paquetes de palabras personalizados entre dispositivos.</p>
+    <p>No recopilamos ni almacenamos contraseñas de Google. Toda la autenticación es manejada de forma segura por Google y Firebase Authentication.</p>
+    <p>También permitimos el uso de cuentas anónimas, en cuyo caso solo guardamos los datos asociados a un identificador único anónimo generado por Firebase.</p>
 
     <h2>2. Anuncios (Google AdMob)</h2>
     <p>Nuestra Aplicación utiliza los servicios de <strong>Google AdMob</strong> para mostrar anuncios. AdMob puede recopilar y utilizar datos de su dispositivo, como su ID de publicidad, dirección IP y otra información del sistema y de la red, de acuerdo con la <a href="https://policies.google.com/privacy" target="_blank">Política de Privacidad de Google</a>.</p>
