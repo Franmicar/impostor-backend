@@ -45,11 +45,11 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     <p>Podemos actualizar nuestra Política de Privacidad de vez en cuando. Le notificaremos publicando la nueva Política de Privacidad en esta misma página.</p>
 
     <hr>
-    <p style="font-size: 14px; text-align: center; color: #7f8c8d;">Para cualquier duda contacta con el soporte de Deceptra escribiendo a <strong>franmicar.dev&#64;gmail.com</strong>.</p>
+    <p style="font-size: 14px; text-align: center; color: #7f8c8d;">Para cualquier duda contacta con el soporte de Deceptra escribiendo a <strong>support.deceptra&#64;gmail.com</strong>.</p>
 </body>
 </html>
   `;
-  
+
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.status(200).send(html);
 }
