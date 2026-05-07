@@ -1,11 +1,13 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import { AppError, ValidationError } from '../utils/errors';
 
 export abstract class BaseController {
 
     /**
      * Responde con un status 200 y JSON data format
      */
-    protected handleSuccess(res: VercelResponse, data: any, message: string = 'Success') {
+    protected handleSuccess(res: VercelResponse, data: unknown, message: string = 'Success') {
+        res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate');
         res.status(200).json({
             success: true,
             message,
@@ -16,7 +18,7 @@ export abstract class BaseController {
     /**
      * Responde con un status 201 y un item creado
      */
-    protected handleCreated(res: VercelResponse, data: any, message: string = 'Created successfully') {
+    protected handleCreated(res: VercelResponse, data: unknown, message: string = 'Created successfully') {
         res.status(201).json({
             success: true,
             message,
@@ -32,6 +34,17 @@ export abstract class BaseController {
 
         // Regla #5 (Backend Dev Guidelines): Integrar con Sentry en el futuro aquí.
         // Sentry.captureException(error); 
+
+        if (error instanceof ValidationError) {
+            return this.handleValidationError(res, error.errors);
+        }
+
+        if (error instanceof AppError) {
+            return res.status(error.statusCode).json({
+                success: false,
+                message: error.message
+            });
+        }
 
         res.status(500).json({
             success: false,

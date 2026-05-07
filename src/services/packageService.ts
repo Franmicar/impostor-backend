@@ -1,9 +1,11 @@
 import { PackageRepository } from '../repositories/PackageRepository';
+import { PackageResponse, WordResponse } from '../types';
+import { NotFoundError } from '../utils/errors';
 
 export class PackageService {
     constructor(private readonly packageRepository: PackageRepository) { }
 
-    async getAllPackages(lang: string = 'es') {
+    async getAllPackages(lang: string = 'es'): Promise<PackageResponse[]> {
         const packages = await this.packageRepository.findAll();
 
         return packages.map(pkg => {
@@ -20,10 +22,10 @@ export class PackageService {
         });
     }
 
-    async getPackageById(id: string, lang: string = 'es') {
-        const pkg: any = await this.packageRepository.findById(id);
+    async getPackageById(id: string, lang: string = 'es'): Promise<PackageResponse> {
+        const pkg = await this.packageRepository.findById(id);
         if (!pkg) {
-            throw new Error('Package not found');
+            throw new NotFoundError('Package not found');
         }
 
         const translatedName = pkg.name_translations ? (pkg.name_translations[lang] || pkg.name_translations['es'] || pkg.id) : pkg.id;
@@ -37,13 +39,13 @@ export class PackageService {
         };
     }
 
-    async getPackageWords(id: string, lang: string = 'es') {
+    async getPackageWords(id: string, lang: string = 'es'): Promise<WordResponse[]> {
         const wordsDocs = await this.packageRepository.findWordsByPackageId(id);
 
         // Mapear las traducciones anidadas a la respuesta plana
         return wordsDocs.map(wordDoc => {
             const translations = wordDoc.translations || {};
-            const langData = translations[lang] || translations['es'] || {};
+            const langData = translations[lang] || translations['es'] || ({} as any);
 
             return {
                 id: wordDoc.id,
