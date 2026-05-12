@@ -57,7 +57,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const mailOptions = {
           from: `"Impostor Words Reports" <${process.env.EMAIL_USER}>`,
           to: 'support.deceptra@gmail.com',
-          subject: `Nuevo reporte: ${type.toUpperCase()} - Impostor Words`,
+          subject: `Nuevo reporte: ${reportData.type.toUpperCase()} - Impostor Words`,
           html: `
             <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
               <h2 style="color: #d9534f;">Nuevo Reporte Recibido</h2>
