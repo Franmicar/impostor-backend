@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseController = void 0;
+const errors_1 = require("../utils/errors");
 class BaseController {
     /**
      * Responde con un status 200 y JSON data format
      */
     handleSuccess(res, data, message = 'Success') {
+        res.setHeader('Cache-Control', 's-maxage=86400, stale-while-revalidate');
         res.status(200).json({
             success: true,
             message,
@@ -29,6 +31,15 @@ class BaseController {
         console.error(`[BaseController Error] Context: ${context || 'Unknown'}`, error);
         // Regla #5 (Backend Dev Guidelines): Integrar con Sentry en el futuro aquí.
         // Sentry.captureException(error); 
+        if (error instanceof errors_1.ValidationError) {
+            return this.handleValidationError(res, error.errors);
+        }
+        if (error instanceof errors_1.AppError) {
+            return res.status(error.statusCode).json({
+                success: false,
+                message: error.message
+            });
+        }
         res.status(500).json({
             success: false,
             message: 'Internal Server Error',

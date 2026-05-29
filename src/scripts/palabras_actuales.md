@@ -107,7 +107,7 @@ Aquí tienes la lista completa de las 120 palabras que tenemos actualmente integ
 6. Chocolate
 7. Ensalada
 8. Patatas Fritas
-9. Spaghetti
+9. Espaguetis
 10. Queso
 11. Bistec
 12. Paella

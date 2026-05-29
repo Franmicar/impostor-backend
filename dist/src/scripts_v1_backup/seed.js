@@ -1,22 +1,51 @@
-import * as admin from 'firebase-admin';
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-import { translationsPt1 } from './translations_pt1';
-import { translationsPt2 } from './translations_pt2';
-
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+const admin = __importStar(require("firebase-admin"));
+const dotenv = __importStar(require("dotenv"));
+const translations_pt1_1 = require("./translations_pt1");
+const translations_pt2_1 = require("./translations_pt2");
 dotenv.config();
-
 if (!admin.apps.length) {
     admin.initializeApp({
         credential: admin.credential.applicationDefault()
     });
 }
-
 const db = admin.firestore();
-
 const seedData = async () => {
     console.log('Starting seed process...');
-
     const packages = [
         {
             id: 'mock-1',
@@ -61,7 +90,6 @@ const seedData = async () => {
             wordCount: 20
         }
     ];
-
     const wordsData = {
         'mock-1': [
             { translations: { es: { word: "Cerveza", fake_word: "Refresco", hints: ["Bebida", "Alcohol", "Espuma"] }, en: { word: "Beer", fake_word: "Soda", hints: ["Drink", "Alcohol", "Foam"] } } },
@@ -196,36 +224,33 @@ const seedData = async () => {
             { translations: { es: { word: "Detective Conan", fake_word: "Lupin III", hints: ["Niño", "Resolver casos", "Gafas"] }, en: { word: "Detective Conan", fake_word: "Lupin III", hints: ["Kid", "Solve cases", "Glasses"] } } }
         ]
     };
-
     try {
         const batch = db.batch();
-
         for (const pkg of packages) {
             const packageRef = db.collection('packages').doc(pkg.id);
             batch.set(packageRef, pkg);
-
-            const wordsList = wordsData[pkg.id as keyof typeof wordsData];
+            const wordsList = wordsData[pkg.id];
             if (wordsList) {
-                const mergedFrCa: any = { ...translationsPt1, ...translationsPt2 };
+                const mergedFrCa = { ...translations_pt1_1.translationsPt1, ...translations_pt2_1.translationsPt2 };
                 const extraList = mergedFrCa[pkg.id];
-
                 for (let i = 0; i < wordsList.length; i++) {
-                    const wordObj = wordsList[i] as any;
+                    const wordObj = wordsList[i];
                     if (extraList && extraList[i]) {
-                        if (extraList[i].fr) wordObj.translations.fr = extraList[i].fr;
-                        if (extraList[i].ca) wordObj.translations.ca = extraList[i].ca;
+                        if (extraList[i].fr)
+                            wordObj.translations.fr = extraList[i].fr;
+                        if (extraList[i].ca)
+                            wordObj.translations.ca = extraList[i].ca;
                     }
                     const wordRef = packageRef.collection('words').doc();
                     batch.set(wordRef, wordObj);
                 }
             }
         }
-
         await batch.commit();
         console.log('Database seeded successfully!');
-    } catch (error) {
+    }
+    catch (error) {
         console.error('Error seeding database:', error);
     }
 };
-
 seedData().then(() => process.exit(0)).catch(() => process.exit(1));

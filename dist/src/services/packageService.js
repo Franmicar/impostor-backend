@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PackageService = void 0;
+const errors_1 = require("../utils/errors");
 class PackageService {
     constructor(packageRepository) {
         this.packageRepository = packageRepository;
@@ -22,7 +23,7 @@ class PackageService {
     async getPackageById(id, lang = 'es') {
         const pkg = await this.packageRepository.findById(id);
         if (!pkg) {
-            throw new Error('Package not found');
+            throw new errors_1.NotFoundError('Package not found');
         }
         const translatedName = pkg.name_translations ? (pkg.name_translations[lang] || pkg.name_translations['es'] || pkg.id) : pkg.id;
         return {
