@@ -1,0 +1,8 @@
+node_modules
+dist
+.vscode
+.git
+.antigravity
+firebase-credentials.json
+.env
+.env.local
